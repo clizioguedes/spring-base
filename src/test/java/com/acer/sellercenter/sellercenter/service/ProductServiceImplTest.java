@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,30 +42,33 @@ class ProductServiceImplTest {
         // Arrange
         List<Product> products = ProductServiceImplData.getProductList();
         List<ProductDTO> productsDto = ProductServiceImplData.getProductListDto(products);
-        when(productRepository.findAll()).thenReturn(products);
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
+
+        when(productRepository.findAll(pageable)).thenReturn(new PageImpl<>(products));
         when(productDtoMapper.toDto(products)).thenReturn(productsDto);
 
 
         // Act
-        List<ProductDTO> result = productService.findAll();
+        Page<ProductDTO> result = productService.findAll(pageable);
 
         // Assert
         assertNotNull(result);
-        assertEquals(products.size(), result.size());
-        assertEquals(productsDto, result);
+        assertEquals(products.size(), result.getTotalElements());
+        assertEquals(productsDto, result.getContent());
     }
 
     @Test
     void findAll_ShouldReturnEmptyList_WhenNoProductsExist() {
         // Arrange
-        when(productRepository.findAll()).thenReturn(List.of());
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
+        when(productRepository.findAll(pageable)).thenReturn(Page.empty());
 
         // Act
-        List<ProductDTO> result = productService.findAll();
+        Page<ProductDTO> result = productService.findAll(pageable);
 
         // Assert
         assertNotNull(result);
-        assertTrue(result.isEmpty());
+        assertTrue(result.getContent().isEmpty());
     }
 
     @Test

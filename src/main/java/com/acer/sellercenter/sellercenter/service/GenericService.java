@@ -4,8 +4,10 @@ import com.acer.sellercenter.sellercenter.mappers.DtoMapper;
 import com.acer.sellercenter.sellercenter.model.BaseEntity;
 import com.acer.sellercenter.sellercenter.repository.GenericRepository;
 import com.acer.sellercenter.sellercenter.utils.exception.ResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface GenericService<E extends BaseEntity, DTO> {
@@ -13,9 +15,9 @@ public interface GenericService<E extends BaseEntity, DTO> {
 
     DtoMapper<E, DTO> getDtoMapper();
 
-    default List<DTO> findAll() {
-        List<E> entities = getRepository().findAll();
-        return getDtoMapper().toDto(entities);
+    default Page<DTO> findAll(Pageable pageable) {
+        Page<E> entityPage = getRepository().findAll(pageable);
+        return new PageImpl<>(getDtoMapper().toDto(entityPage.getContent()), pageable, entityPage.getTotalElements());
     }
 
     default DTO findById(UUID id) {

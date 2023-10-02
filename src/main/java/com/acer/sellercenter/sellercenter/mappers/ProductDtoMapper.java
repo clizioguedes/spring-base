@@ -4,8 +4,6 @@ import com.acer.sellercenter.sellercenter.dto.ProductDTO;
 import com.acer.sellercenter.sellercenter.model.Product;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class ProductDtoMapper implements DtoMapper<Product, ProductDTO> {
     @Override

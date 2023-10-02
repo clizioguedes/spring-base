@@ -2,11 +2,12 @@ package com.acer.sellercenter.sellercenter.controller;
 
 import com.acer.sellercenter.sellercenter.model.BaseEntity;
 import com.acer.sellercenter.sellercenter.service.GenericService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 public abstract class GenericController<E extends BaseEntity, DTO, S extends GenericService<E, DTO>> {
@@ -18,8 +19,8 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
     }
 
     @GetMapping
-    public ResponseEntity<List<DTO>> getAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<Page<DTO>> getAll(Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @GetMapping("/{id}")
