@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @MappedSuperclass
 public abstract class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
-    protected UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PRODUCT")
+    @SequenceGenerator(name = "SEQ_PRODUCT", sequenceName = "seq_product", allocationSize = 1)
+    private long id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     protected ZonedDateTime createdAt;
@@ -22,11 +21,11 @@ public abstract class BaseEntity {
     @Column(name = "deleted")
     protected boolean deleted;
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 

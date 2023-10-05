@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.UUID;
 
 public interface GenericService<E extends BaseEntity, DTO> {
     GenericRepository<E> getRepository();
@@ -20,7 +19,7 @@ public interface GenericService<E extends BaseEntity, DTO> {
         return new PageImpl<>(getDtoMapper().toDto(entityPage.getContent()), pageable, entityPage.getTotalElements());
     }
 
-    default DTO findById(UUID id) {
+    default DTO findById(Long id) {
 
         E entity = getRepository().findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
 
@@ -32,7 +31,7 @@ public interface GenericService<E extends BaseEntity, DTO> {
         return getDtoMapper().toDto(getRepository().save(entity));
     }
 
-    default DTO update(UUID id, DTO dto) {
+    default DTO update(Long id, DTO dto) {
 
         getRepository().findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
 
@@ -43,7 +42,7 @@ public interface GenericService<E extends BaseEntity, DTO> {
         return getDtoMapper().toDto(getRepository().save(updatedEntity));
     }
 
-    default void deleteById(UUID id) {
+    default void deleteById(Long id) {
         E entity = getRepository().findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
         entity.setDeleted(true);
         getRepository().save(entity);
