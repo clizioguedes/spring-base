@@ -7,13 +7,8 @@ spring:
 
   jpa:
     show-sql: false
-  flyway:
-    validate-migration-naming: on
-    validate-on-migrate: true
 
 server:
   port: 8080
   servlet:
     context-path: /api
-
-
