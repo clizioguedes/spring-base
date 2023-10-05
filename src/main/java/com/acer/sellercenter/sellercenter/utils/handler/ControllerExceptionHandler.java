@@ -1,6 +1,7 @@
 package com.acer.sellercenter.sellercenter.utils.handler;
 
 import com.acer.sellercenter.sellercenter.utils.exception.BusinessException;
+import com.acer.sellercenter.sellercenter.utils.exception.ConversionException;
 import com.acer.sellercenter.sellercenter.utils.exception.ErrorDTO;
 import com.acer.sellercenter.sellercenter.utils.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class ResourceExceptionHandler {
+public class ControllerExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorDTO> businessException(BusinessException exception, HttpServletRequest request) {
@@ -40,6 +41,20 @@ public class ResourceExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
+
+    @ExceptionHandler(ConversionException.class)
+    public ResponseEntity<ErrorDTO> conversionException(Exception e, HttpServletRequest request) {
+
+        var err = new ErrorDTO(
+                ZonedDateTime.now(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "An unexpected problem occurred while converting data.",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 
     @ExceptionHandler(Exception.class)
