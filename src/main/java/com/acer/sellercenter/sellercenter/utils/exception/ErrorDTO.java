@@ -1,6 +1,6 @@
 package com.acer.sellercenter.sellercenter.utils.exception;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
-public record ErrorDTO(Instant timestamp, Integer status, String error, String message, String path) {
+public record ErrorDTO(ZonedDateTime timestamp, Integer status, String error, String message, String path) {
 }
