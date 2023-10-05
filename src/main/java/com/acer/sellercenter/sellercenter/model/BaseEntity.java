@@ -2,11 +2,13 @@ package com.acer.sellercenter.sellercenter.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PRODUCT")
     @SequenceGenerator(name = "SEQ_PRODUCT", sequenceName = "seq_product", allocationSize = 1)
