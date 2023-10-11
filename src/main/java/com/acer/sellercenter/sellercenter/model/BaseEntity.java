@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+/**
+ * A mapped superclass representing the base entity in the application.
+ * Provides common attributes like ID, creation/update timestamps, and deletion flag for entities.
+ */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
     @Id
@@ -53,11 +57,17 @@ public abstract class BaseEntity implements Serializable {
         this.deleted = deleted;
     }
 
+    /**
+     * Sets the creation timestamp before persisting the entity.
+     */
     @PrePersist
     protected void onCreate() {
         this.createdAt = ZonedDateTime.now();
     }
 
+    /**
+     * Sets the update timestamp before updating the entity.
+     */
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = ZonedDateTime.now();

@@ -1,8 +1,14 @@
 # Acer Seller Center - Código Base para Microserviços
 
-![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)
-[![forthebadge](https://raw.githubusercontent.com/clizioguedes/images/05a25edd2ebdf9df8dd57be1bebe5ff89e68d538/ufrn/acer/sellercenter/badges/spring-badge.svg)
-![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
+![forthebadge](https://img.shields.io/badge/Acer-83B81A.svg?style=for-the-badge&logo=Acer&logoColor=white)
+
+![forthebadge](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
+
+![forthebadge](https://img.shields.io/badge/Spring%20Boot-6DB33F.svg?style=for-the-badge&logo=Spring-Boot&logoColor=white)
+
+![forthebadge](https://img.shields.io/badge/Apache%20Maven-C71A36.svg?style=for-the-badge&logo=Apache-Maven&logoColor=white)
+
+![forthebadge](https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=PostgreSQL&logoColor=white)
 
 Este é um código base desenvolvido em Java, utilizando o JDK 17 e o framework Spring na versão 3.1.3. O objetivo deste microserviço é servir como base para os outros microserviços do projeto Acer Seller Center
 

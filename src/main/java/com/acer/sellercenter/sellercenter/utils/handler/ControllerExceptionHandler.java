@@ -19,11 +19,22 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Global exception handler for controllers in the application.
+ * Handles various types of exceptions and maps them to appropriate error responses.
+ */
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
     Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
+    /**
+     * Handles BusinessException and maps it to a custom error response.
+     *
+     * @param exception The BusinessException instance.
+     * @param request   The HttpServletRequest.
+     * @return ResponseEntity containing the error response.
+     */
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorDTO> businessException(BusinessException exception, HttpServletRequest request) {
 
@@ -38,6 +49,13 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
+    /**
+     * Handles ResourceNotFoundException and maps it to a custom error response.
+     *
+     * @param exception The ResourceNotFoundException instance.
+     * @param request   The HttpServletRequest.
+     * @return ResponseEntity containing the error response.
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDTO> notFound(ResourceNotFoundException exception, HttpServletRequest request) {
 
@@ -52,8 +70,15 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
+    /**
+     * Handles ConversionException and maps it to a custom error response.
+     *
+     * @param e       The ConversionException instance.
+     * @param request The HttpServletRequest.
+     * @return ResponseEntity containing the error response.
+     */
     @ExceptionHandler(ConversionException.class)
-    public ResponseEntity<ErrorDTO> conversionException(Exception e, HttpServletRequest request) {
+    public ResponseEntity<ErrorDTO> conversionException(ConversionException e, HttpServletRequest request) {
 
         var err = new ErrorDTO(
                 ZonedDateTime.now(),
@@ -66,8 +91,15 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 
+    /**
+     * Handles TransactionSystemException and maps it to a custom error response.
+     *
+     * @param ex      The TransactionSystemException instance.
+     * @param request The HttpServletRequest.
+     * @return ResponseEntity containing the error response.
+     */
     @ExceptionHandler({TransactionSystemException.class})
-    protected ResponseEntity<ErrorDTO> handlePersistenceException(final Exception ex, final HttpServletRequest request) {
+    protected ResponseEntity<ErrorDTO> handlePersistenceException(Exception ex, HttpServletRequest request) {
         logger.info(ex.getClass().getName());
 
         Throwable cause = ((TransactionSystemException) ex).getRootCause();
@@ -90,6 +122,13 @@ public class ControllerExceptionHandler {
         return internalErrorException(ex, request);
     }
 
+    /**
+     * Handles any other unexpected exception and maps it to a generic error response.
+     *
+     * @param e       The unexpected Exception instance.
+     * @param request The HttpServletRequest.
+     * @return ResponseEntity containing the error response.
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> internalErrorException(Exception e, HttpServletRequest request) {
 
