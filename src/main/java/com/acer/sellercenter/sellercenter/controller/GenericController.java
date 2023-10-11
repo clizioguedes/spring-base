@@ -3,13 +3,16 @@ package com.acer.sellercenter.sellercenter.controller;
 import com.acer.sellercenter.sellercenter.model.BaseEntity;
 import com.acer.sellercenter.sellercenter.service.GenericService;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+@Validated
 public abstract class GenericController<E extends BaseEntity, DTO, S extends GenericService<E, DTO>> {
 
     protected S service;
@@ -24,7 +27,7 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
      * @return the list of DTO and status 200 (OK).
      */
     @GetMapping
-    public ResponseEntity<Page<DTO>> getAll(Pageable pageable) {
+    public ResponseEntity<Page<DTO>> getAll(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
@@ -74,3 +77,4 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
     }
 
 }
+

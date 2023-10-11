@@ -8,10 +8,8 @@ import java.util.Objects;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PRODUCT")
-    @SequenceGenerator(name = "SEQ_PRODUCT", sequenceName = "seq_product", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -21,7 +19,7 @@ public abstract class BaseEntity implements Serializable {
     protected ZonedDateTime updatedAt;
 
     @Column(name = "deleted")
-    protected boolean deleted;
+    protected boolean deleted = false;
 
     public long getId() {
         return id;

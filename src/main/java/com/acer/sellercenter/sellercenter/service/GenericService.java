@@ -4,6 +4,7 @@ import com.acer.sellercenter.sellercenter.mappers.DtoMapper;
 import com.acer.sellercenter.sellercenter.model.BaseEntity;
 import com.acer.sellercenter.sellercenter.repository.GenericRepository;
 import com.acer.sellercenter.sellercenter.utils.exception.ResourceNotFoundException;
+import com.acer.sellercenter.sellercenter.utils.validators.GenericEntityValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ public interface GenericService<E extends BaseEntity, DTO> {
 
     default DTO create(DTO dto) {
         E entity = getDtoMapper().toEntity(dto);
+        validateBeforeSave(entity);
         return getDtoMapper().toDto(getRepository().save(entity));
     }
 
@@ -36,7 +38,8 @@ public interface GenericService<E extends BaseEntity, DTO> {
         getRepository().findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
 
         E updatedEntity = getDtoMapper().toEntity(dto);
-
+        updatedEntity.setId(id);
+        validateBeforeUpdate(updatedEntity);
         getRepository().save(updatedEntity);
 
         return getDtoMapper().toDto(getRepository().save(updatedEntity));
@@ -47,4 +50,13 @@ public interface GenericService<E extends BaseEntity, DTO> {
         entity.setDeleted(true);
         getRepository().save(entity);
     }
+
+    default void validateBeforeSave(E entity) {
+        GenericEntityValidator.validate(entity);
+    }
+
+    default void validateBeforeUpdate(E entity) {
+        GenericEntityValidator.validate(entity);
+    }
+
 }
