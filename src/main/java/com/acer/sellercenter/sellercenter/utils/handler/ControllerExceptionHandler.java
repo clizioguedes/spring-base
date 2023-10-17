@@ -1,5 +1,6 @@
 package com.acer.sellercenter.sellercenter.utils.handler;
 
+import com.acer.sellercenter.sellercenter.dto.ApiResponseDTO;
 import com.acer.sellercenter.sellercenter.utils.exception.BusinessException;
 import com.acer.sellercenter.sellercenter.utils.exception.ConversionException;
 import com.acer.sellercenter.sellercenter.utils.exception.ErrorDTO;
@@ -36,7 +37,7 @@ public class ControllerExceptionHandler {
      * @return ResponseEntity containing the error response.
      */
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ErrorDTO> businessException(BusinessException exception, HttpServletRequest request) {
+    public ResponseEntity<ApiResponseDTO<ErrorDTO>> businessException(BusinessException exception, HttpServletRequest request) {
 
         var err = new ErrorDTO(
                 ZonedDateTime.now(),
@@ -46,7 +47,12 @@ public class ControllerExceptionHandler {
                 request.getRequestURI()
         );
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<ErrorDTO>(
+                false,
+                "Error: " + exception.getMessage(),
+                null,
+                err
+        ));
     }
 
     /**
@@ -57,7 +63,7 @@ public class ControllerExceptionHandler {
      * @return ResponseEntity containing the error response.
      */
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorDTO> notFound(ResourceNotFoundException exception, HttpServletRequest request) {
+    public ResponseEntity<ApiResponseDTO<ErrorDTO>> notFound(ResourceNotFoundException exception, HttpServletRequest request) {
 
         var err = new ErrorDTO(
                 ZonedDateTime.now(),
@@ -67,7 +73,12 @@ public class ControllerExceptionHandler {
                 request.getRequestURI()
         );
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<ErrorDTO>(
+                false,
+                "Error: " + exception.getMessage(),
+                null,
+                err
+        ));
     }
 
     /**
@@ -78,17 +89,23 @@ public class ControllerExceptionHandler {
      * @return ResponseEntity containing the error response.
      */
     @ExceptionHandler(ConversionException.class)
-    public ResponseEntity<ErrorDTO> conversionException(ConversionException e, HttpServletRequest request) {
+    public ResponseEntity<ApiResponseDTO<ErrorDTO>> conversionException(ConversionException exception, HttpServletRequest request) {
 
         var err = new ErrorDTO(
                 ZonedDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "An unexpected problem occurred while converting data.",
-                e.getMessage(),
+                exception.getMessage(),
                 request.getRequestURI()
         );
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<ErrorDTO>(
+                false,
+                "Error: " + exception.getMessage(),
+                null,
+                err
+        ));
+
     }
 
     /**
@@ -99,7 +116,7 @@ public class ControllerExceptionHandler {
      * @return ResponseEntity containing the error response.
      */
     @ExceptionHandler({TransactionSystemException.class})
-    protected ResponseEntity<ErrorDTO> handlePersistenceException(Exception ex, HttpServletRequest request) {
+    protected ResponseEntity<ApiResponseDTO<ErrorDTO>> handlePersistenceException(Exception ex, HttpServletRequest request) {
         logger.info(ex.getClass().getName());
 
         Throwable cause = ((TransactionSystemException) ex).getRootCause();
@@ -117,7 +134,12 @@ public class ControllerExceptionHandler {
                     request.getRequestURI()
             );
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponseDTO<ErrorDTO>(
+                    false,
+                    "Error: " + ex.getMessage(),
+                    null,
+                    err
+            ));
         }
         return internalErrorException(ex, request);
     }
@@ -130,7 +152,7 @@ public class ControllerExceptionHandler {
      * @return ResponseEntity containing the error response.
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDTO> internalErrorException(Exception e, HttpServletRequest request) {
+    public ResponseEntity<ApiResponseDTO<ErrorDTO>> internalErrorException(Exception e, HttpServletRequest request) {
 
         var err = new ErrorDTO(
                 ZonedDateTime.now(),
@@ -141,6 +163,11 @@ public class ControllerExceptionHandler {
         );
 
         logger.error("An unexpected problem occurred. ", e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<ErrorDTO>(
+                false,
+                "Error: " + e.getMessage(),
+                null,
+                err
+        ));
     }
 }
