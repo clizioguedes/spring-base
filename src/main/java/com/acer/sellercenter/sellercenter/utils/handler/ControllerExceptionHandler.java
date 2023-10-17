@@ -84,7 +84,7 @@ public class ControllerExceptionHandler {
     /**
      * Handles ConversionException and maps it to a custom error response.
      *
-     * @param e       The ConversionException instance.
+     * @param exception The ConversionException instance.
      * @param request The HttpServletRequest.
      * @return ResponseEntity containing the error response.
      */
