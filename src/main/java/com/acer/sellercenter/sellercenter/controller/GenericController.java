@@ -1,11 +1,12 @@
 package com.acer.sellercenter.sellercenter.controller;
 
 import com.acer.sellercenter.sellercenter.dto.ApiResponseDTO;
+import com.acer.sellercenter.sellercenter.dto.EntityDTO;
 import com.acer.sellercenter.sellercenter.model.BaseEntity;
 import com.acer.sellercenter.sellercenter.service.GenericService;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @param <S>   The type of the service extending GenericService for the entity.
  */
 @Validated
-public abstract class GenericController<E extends BaseEntity, DTO, S extends GenericService<E, DTO>> {
+public abstract class GenericController<E extends BaseEntity, DTO extends EntityDTO, S extends GenericService<E, DTO>> {
 
     protected S service;
 
@@ -40,11 +41,14 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
      * @return ResponseEntity containing the list of DTOs and status 200 (OK).
      */
     @GetMapping
-    public ResponseEntity<ApiResponseDTO<Page<DTO>>> getAll(@ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(new ApiResponseDTO<Page<DTO>>(
+    public ResponseEntity<ApiResponseDTO<PageImpl<EntityDTO>>> getAll(@ParameterObject Pageable pageable) {
+        var page = service.findAll(pageable);
+        var res = new PageImpl<>(page.getContent().stream().map(DTO::toResponse).toList(), pageable, page.getTotalElements());
+
+        return ResponseEntity.ok(new ApiResponseDTO<>(
                 true,
                 "Sucess: Entity located successfully.",
-                service.findAll(pageable),
+                res,
                 null
         ));
     }
@@ -56,11 +60,11 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
      * @return ResponseEntity containing the DTO and status 200 (OK).
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponseDTO<DTO>> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(new ApiResponseDTO<DTO>(
+    public ResponseEntity<ApiResponseDTO<EntityDTO>> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(new ApiResponseDTO<>(
                 true,
                 "Sucess: Entity has been successfully registered.",
-                service.findById(id),
+                service.findById(id).toResponse(),
                 null
         ));
     }
@@ -72,11 +76,11 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
      * @return ResponseEntity containing the DTO and status 201 (CREATED).
      */
     @PostMapping
-    public ResponseEntity<ApiResponseDTO<DTO>> create(@Valid @RequestBody DTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<DTO>(
+    public ResponseEntity<ApiResponseDTO<EntityDTO>> create(@Valid @RequestBody DTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<>(
                 true,
                 "Sucess: Entity created successfully..",
-                service.create(dto),
+                service.create(dto).toResponse(),
                 null
         ));
     }
@@ -89,11 +93,11 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
      * @return ResponseEntity containing the DTO and status 200 (OK).
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponseDTO<DTO>> update(@PathVariable Long id, @Valid @RequestBody DTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<DTO>(
+    public ResponseEntity<ApiResponseDTO<EntityDTO>> update(@PathVariable Long id, @Valid @RequestBody DTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<>(
                 true,
                 "Sucess: Entity has been successfully updated.",
-                service.update(id, dto),
+                service.update(id, dto).toResponse(),
                 null
         ));
     }
@@ -107,13 +111,11 @@ public abstract class GenericController<E extends BaseEntity, DTO, S extends Gen
     @DeleteMapping("{id}")
     public ResponseEntity<ApiResponseDTO<DTO>> delete(@PathVariable Long id) {
         service.deleteById(id);
-        return ResponseEntity.ok(new ApiResponseDTO<DTO>(
+        return ResponseEntity.ok(new ApiResponseDTO<>(
                 true,
                 "Sucess: Entity has been successfully removed.",
                 null,
                 null
         ));
     }
-
 }
-
