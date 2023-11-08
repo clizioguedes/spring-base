@@ -25,7 +25,7 @@ public interface GenericRepository<T extends BaseEntity> extends JpaRepository<T
     default void deleteById(Long id) {
         Optional<T> entity = findById(id);
         if (entity.isPresent()) {
-            entity.get().setDeleted(true);
+            entity.get().setActive(false);
             save(entity.get());
         }
     }
@@ -38,7 +38,7 @@ public interface GenericRepository<T extends BaseEntity> extends JpaRepository<T
     @Override
     @Transactional
     default void delete(T obj) {
-        obj.setDeleted(true);
+        obj.setActive(false);
         save(obj);
     }
 

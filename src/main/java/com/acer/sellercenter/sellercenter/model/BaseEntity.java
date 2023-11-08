@@ -22,8 +22,8 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "updated_at")
     protected ZonedDateTime updatedAt;
 
-    @Column(name = "deleted")
-    protected boolean deleted = false;
+    @Column(name = "active")
+    protected boolean active = true;
 
     public long getId() {
         return id;
@@ -49,12 +49,12 @@ public abstract class BaseEntity implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     /**
@@ -78,11 +78,11 @@ public abstract class BaseEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BaseEntity that = (BaseEntity) o;
-        return deleted == that.deleted && Objects.equals(id, that.id) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+        return active == that.active && Objects.equals(id, that.id) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, deleted);
+        return Objects.hash(id, createdAt, updatedAt, active);
     }
 }

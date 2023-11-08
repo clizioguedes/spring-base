@@ -94,7 +94,7 @@ public interface GenericService<E extends BaseEntity, DTO> {
      */
     default void deleteById(Long id) {
         E entity = getRepository().findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
-        entity.setDeleted(true);
+        entity.setActive(false);
         getRepository().save(entity);
     }
 
