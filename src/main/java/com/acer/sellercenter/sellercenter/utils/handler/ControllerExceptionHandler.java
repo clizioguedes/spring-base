@@ -28,6 +28,7 @@ import java.util.List;
 public class ControllerExceptionHandler {
 
     Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
+    private static final String MSG_ERRO = "Error: ";
 
     /**
      * Handles BusinessException and maps it to a custom error response.
@@ -49,7 +50,7 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<ErrorDTO>(
                 false,
-                "Error: " + exception.getMessage(),
+                MSG_ERRO + exception.getMessage(),
                 null,
                 err
         ));
@@ -75,7 +76,7 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<ErrorDTO>(
                 false,
-                "Error: " + exception.getMessage(),
+                MSG_ERRO + exception.getMessage(),
                 null,
                 err
         ));
@@ -85,7 +86,7 @@ public class ControllerExceptionHandler {
      * Handles ConversionException and maps it to a custom error response.
      *
      * @param exception The ConversionException instance.
-     * @param request The HttpServletRequest.
+     * @param request   The HttpServletRequest.
      * @return ResponseEntity containing the error response.
      */
     @ExceptionHandler(ConversionException.class)
@@ -101,7 +102,7 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<ErrorDTO>(
                 false,
-                "Error: " + exception.getMessage(),
+                MSG_ERRO + exception.getMessage(),
                 null,
                 err
         ));
@@ -136,7 +137,7 @@ public class ControllerExceptionHandler {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponseDTO<ErrorDTO>(
                     false,
-                    "Error: " + ex.getMessage(),
+                    MSG_ERRO + ex.getMessage(),
                     null,
                     err
             ));
@@ -165,7 +166,7 @@ public class ControllerExceptionHandler {
         logger.error("An unexpected problem occurred. ", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<ErrorDTO>(
                 false,
-                "Error: " + e.getMessage(),
+                MSG_ERRO + e.getMessage(),
                 null,
                 err
         ));

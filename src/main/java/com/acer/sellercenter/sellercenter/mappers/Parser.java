@@ -13,6 +13,11 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class Parser {
 
+    private Parser() {
+        throw new IllegalStateException("Utility class");
+    }
+
+
     private static final Logger logger = LoggerFactory.getLogger(Parser.class);
 
     /**

@@ -77,7 +77,8 @@ public interface GenericService<E extends BaseEntity, DTO> {
      */
     default DTO update(Long id, DTO dto) {
 
-        getRepository().findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
+        var entityExists = getRepository().existsById(id);
+        if (!entityExists) throw new ResourceNotFoundException("Id not found: " + id);
 
         E updatedEntity = getDtoMapper().toEntity(dto);
         updatedEntity.setId(id);
