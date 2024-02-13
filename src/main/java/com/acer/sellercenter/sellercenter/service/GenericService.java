@@ -1,19 +1,22 @@
 package com.acer.sellercenter.sellercenter.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import com.acer.sellercenter.sellercenter.mappers.DtoMapper;
 import com.acer.sellercenter.sellercenter.model.BaseEntity;
 import com.acer.sellercenter.sellercenter.repository.GenericRepository;
 import com.acer.sellercenter.sellercenter.utils.exception.ResourceNotFoundException;
 import com.acer.sellercenter.sellercenter.utils.validators.GenericEntityValidator;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 /**
- * A generic service interface defining common operations for entities in the application.
+ * A generic service interface defining common operations for entities in the
+ * application.
  *
  * @param <E>   The type of the entity extending BaseEntity.
- * @param <DTO> The type of the DTO (Data Transfer Object) associated with the entity.
+ * @param <DTO> The type of the DTO (Data Transfer Object) associated with the
+ *              entity.
  */
 public interface GenericService<E extends BaseEntity, DTO> {
 
@@ -78,7 +81,8 @@ public interface GenericService<E extends BaseEntity, DTO> {
     default DTO update(Long id, DTO dto) {
 
         var entityExists = getRepository().existsById(id);
-        if (!entityExists) throw new ResourceNotFoundException("Id not found: " + id);
+        if (!entityExists)
+            throw new ResourceNotFoundException("Id not found: " + id);
 
         E updatedEntity = getDtoMapper().toEntity(dto);
         updatedEntity.setId(id);

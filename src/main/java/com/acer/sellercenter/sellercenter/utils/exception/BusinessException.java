@@ -11,10 +11,11 @@ public class BusinessException extends RuntimeException {
     private final HttpStatus httpStatusCode;
 
     /**
-     * Constructs a new BusinessException with the specified detail message and HTTP status code.
+     * Constructs a new BusinessException with the specified detail message and HTTP
+     * status code.
      *
-     * @param message        the detail message.
-     * @param statusCode     the HTTP status code associated with the error.
+     * @param message    the detail message.
+     * @param statusCode the HTTP status code associated with the error.
      */
     public BusinessException(String message, HttpStatus statusCode) {
         super(message);

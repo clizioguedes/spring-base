@@ -1,6 +1,5 @@
 package com.acer.sellercenter.sellercenter.utils;
 
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,6 +31,3 @@ public class HttpRequest<T> {
         return response.getBody();
     }
 }
-
-
-

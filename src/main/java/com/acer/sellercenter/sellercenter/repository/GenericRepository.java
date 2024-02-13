@@ -1,14 +1,17 @@
 package com.acer.sellercenter.sellercenter.repository;
 
-import com.acer.sellercenter.sellercenter.model.BaseEntity;
-import jakarta.transaction.Transactional;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import java.util.Optional;
+import com.acer.sellercenter.sellercenter.model.BaseEntity;
+
+import jakarta.transaction.Transactional;
 
 /**
- * A generic repository interface defining common CRUD operations for entities in the application.
+ * A generic repository interface defining common CRUD operations for entities
+ * in the application.
  *
  * @param <T> The type of the entity extending BaseEntity.
  */
@@ -16,7 +19,8 @@ import java.util.Optional;
 public interface GenericRepository<T extends BaseEntity> extends JpaRepository<T, Long> {
 
     /**
-     * Overrides the default deleteById method to mark the entity as deleted instead of physically removing it.
+     * Overrides the default deleteById method to mark the entity as deleted instead
+     * of physically removing it.
      *
      * @param id The ID of the entity to be marked as deleted.
      */
@@ -31,7 +35,8 @@ public interface GenericRepository<T extends BaseEntity> extends JpaRepository<T
     }
 
     /**
-     * Overrides the default delete method to mark the entity as deleted instead of physically removing it.
+     * Overrides the default delete method to mark the entity as deleted instead of
+     * physically removing it.
      *
      * @param obj The entity to be marked as deleted.
      */
@@ -43,7 +48,8 @@ public interface GenericRepository<T extends BaseEntity> extends JpaRepository<T
     }
 
     /**
-     * Overrides the default deleteAll method to mark the entities as deleted instead of physically removing them.
+     * Overrides the default deleteAll method to mark the entities as deleted
+     * instead of physically removing them.
      *
      * @param arg0 Iterable of entities to be marked as deleted.
      */

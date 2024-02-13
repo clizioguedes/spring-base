@@ -3,7 +3,8 @@ package com.acer.sellercenter.sellercenter.mappers;
 import java.util.List;
 
 /**
- * Interface defining mapping operations between entity objects (E) and DTOs (DTO).
+ * Interface defining mapping operations between entity objects (E) and DTOs
+ * (DTO).
  * Provides methods to convert entities to DTOs and vice versa.
  *
  * @param <E>   The type of the entity.

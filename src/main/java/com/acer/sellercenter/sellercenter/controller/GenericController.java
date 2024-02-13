@@ -1,24 +1,34 @@
 package com.acer.sellercenter.sellercenter.controller;
 
-import com.acer.sellercenter.sellercenter.dto.ApiResponseDTO;
-import com.acer.sellercenter.sellercenter.dto.EntityDTO;
-import com.acer.sellercenter.sellercenter.model.BaseEntity;
-import com.acer.sellercenter.sellercenter.service.GenericService;
-import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.acer.sellercenter.sellercenter.dto.ApiResponseDTO;
+import com.acer.sellercenter.sellercenter.dto.EntityDTO;
+import com.acer.sellercenter.sellercenter.model.BaseEntity;
+import com.acer.sellercenter.sellercenter.service.GenericService;
+
+import jakarta.validation.Valid;
 
 /**
- * A generic controller providing common CRUD operations for entities in the application.
- * This abstract class defines methods for handling HTTP requests related to entity management.
+ * A generic controller providing common CRUD operations for entities in the
+ * application.
+ * This abstract class defines methods for handling HTTP requests related to
+ * entity management.
  *
  * @param <E>   The type of the entity extending BaseEntity.
- * @param <DTO> The type of the DTO (Data Transfer Object) associated with the entity.
+ * @param <DTO> The type of the DTO (Data Transfer Object) associated with the
+ *              entity.
  * @param <S>   The type of the service extending GenericService for the entity.
  */
 @Validated
@@ -43,14 +53,14 @@ public abstract class GenericController<E extends BaseEntity, DTO extends Entity
     @GetMapping
     public ResponseEntity<ApiResponseDTO<PageImpl<EntityDTO>>> getAll(@ParameterObject Pageable pageable) {
         var page = service.findAll(pageable);
-        var res = new PageImpl<>(page.getContent().stream().map(DTO::toResponse).toList(), pageable, page.getTotalElements());
+        var res = new PageImpl<>(page.getContent().stream().map(DTO::toResponse).toList(), pageable,
+                page.getTotalElements());
 
         return ResponseEntity.ok(new ApiResponseDTO<>(
                 true,
                 "Sucess: Entity located successfully.",
                 res,
-                null
-        ));
+                null));
     }
 
     /**
@@ -65,8 +75,7 @@ public abstract class GenericController<E extends BaseEntity, DTO extends Entity
                 true,
                 "Sucess: Entity has been successfully registered.",
                 service.findById(id).toResponse(),
-                null
-        ));
+                null));
     }
 
     /**
@@ -81,8 +90,7 @@ public abstract class GenericController<E extends BaseEntity, DTO extends Entity
                 true,
                 "Sucess: Entity created successfully..",
                 service.create(dto).toResponse(),
-                null
-        ));
+                null));
     }
 
     /**
@@ -98,8 +106,7 @@ public abstract class GenericController<E extends BaseEntity, DTO extends Entity
                 true,
                 "Sucess: Entity has been successfully updated.",
                 service.update(id, dto).toResponse(),
-                null
-        ));
+                null));
     }
 
     /**
@@ -115,7 +122,6 @@ public abstract class GenericController<E extends BaseEntity, DTO extends Entity
                 true,
                 "Sucess: Entity has been successfully removed.",
                 null,
-                null
-        ));
+                null));
     }
 }

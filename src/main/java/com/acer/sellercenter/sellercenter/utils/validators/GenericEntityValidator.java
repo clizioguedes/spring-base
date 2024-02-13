@@ -1,16 +1,19 @@
 package com.acer.sellercenter.sellercenter.utils.validators;
 
+import java.util.Set;
+
+import org.springframework.http.HttpStatus;
+
 import com.acer.sellercenter.sellercenter.utils.exception.BusinessException;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import org.springframework.http.HttpStatus;
-
-import java.util.Set;
 
 /**
  * Utility class for validating entities using Bean Validation.
- * This class provides a static method to validate objects based on the defined constraints.
+ * This class provides a static method to validate objects based on the defined
+ * constraints.
  */
 public class GenericEntityValidator {
 
@@ -27,7 +30,8 @@ public class GenericEntityValidator {
      *
      * @param object The object to be validated.
      * @param <T>    The type of the object to be validated.
-     * @throws BusinessException If validation fails, containing error messages and HTTP status.
+     * @throws BusinessException If validation fails, containing error messages and
+     *                           HTTP status.
      */
     public static <T> void validate(T object) {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
