@@ -1,6 +1,4 @@
-# Acer Seller Center - Código Base para Microserviços
-
-![forthebadge](https://img.shields.io/badge/Acer-83B81A.svg?style=for-the-badge&logo=Acer&logoColor=white)
+# Código Base para Microserviços
 
 ![forthebadge](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
 
@@ -10,7 +8,7 @@
 
 ![forthebadge](https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=PostgreSQL&logoColor=white)
 
-Este é um código base desenvolvido em Java, utilizando o JDK 17 e o framework Spring na versão 3.1.3. O objetivo deste microserviço é servir como base para os outros microserviços do projeto Acer Seller Center
+Este é um código base desenvolvido em Java, utilizando o JDK 17 e o framework Spring na versão 3.1.3.
 
 - [Requisitos](#requisitos)
 - [Configuração](#configurando-ambiente)
@@ -26,9 +24,7 @@ Este é um código base desenvolvido em Java, utilizando o JDK 17 e o framework 
 
 ## Configurando Ambiente
 
-1. ```sh
-    git clone https://projetos.imd.ufrn.br/acer/acer-seller-center.git
-   ```
+1. Clone do repositório
 
 2. Abra a pasta clonada com seu editor de texto favorito.
 
