@@ -1,4 +1,4 @@
-package com.base.utils.exception;
+package com.dell.base.utils.exception;
 
 /**
  * Exception thrown when a requested resource is not found.

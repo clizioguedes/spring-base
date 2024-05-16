@@ -1,10 +1,10 @@
-package com.base.utils.validators;
+package com.dell.base.utils.validators;
 
 import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 
-import com.base.utils.exception.BusinessException;
+import com.dell.base.utils.exception.BusinessException;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

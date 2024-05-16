@@ -1,6 +1,5 @@
-package com.base.controller;
+package com.dell.base.controller;
 
-import com.base.service.GenericService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.base.dto.ApiResponseDTO;
-import com.base.dto.EntityDTO;
-import com.base.model.BaseEntity;
+import com.dell.base.dto.ApiResponseDTO;
+import com.dell.base.dto.EntityDTO;
+import com.dell.base.model.BaseEntity;
+import com.dell.base.service.GenericService;
 
 import jakarta.validation.Valid;
 

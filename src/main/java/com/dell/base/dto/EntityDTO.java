@@ -1,4 +1,4 @@
-package com.base.dto;
+package com.dell.base.dto;
 
 public interface EntityDTO {
     EntityDTO toResponse();

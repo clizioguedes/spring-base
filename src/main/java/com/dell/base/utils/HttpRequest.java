@@ -1,4 +1,4 @@
-package com.base.utils;
+package com.dell.base.utils;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package com.base.mappers;
+package com.dell.base.mappers;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.base.model;
+package com.dell.base.model;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;

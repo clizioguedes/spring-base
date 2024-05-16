@@ -1,11 +1,11 @@
-package com.base.repository;
+package com.dell.base.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import com.base.model.BaseEntity;
+import com.dell.base.model.BaseEntity;
 
 import jakarta.transaction.Transactional;
 

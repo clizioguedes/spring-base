@@ -1,4 +1,4 @@
-package com.base.utils.exception;
+package com.dell.base.utils.exception;
 
 import java.time.ZonedDateTime;
 

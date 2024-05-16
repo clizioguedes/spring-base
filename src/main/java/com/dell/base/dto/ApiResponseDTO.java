@@ -1,4 +1,4 @@
-package com.base.dto;
+package com.dell.base.dto;
 
 public class ApiResponseDTO<DTO> {
     private boolean success;

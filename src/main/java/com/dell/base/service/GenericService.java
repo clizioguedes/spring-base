@@ -1,14 +1,14 @@
-package com.base.service;
+package com.dell.base.service;
 
-import com.base.mappers.DtoMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.base.model.BaseEntity;
-import com.base.repository.GenericRepository;
-import com.base.utils.exception.ResourceNotFoundException;
-import com.base.utils.validators.GenericEntityValidator;
+import com.dell.base.mappers.DtoMapper;
+import com.dell.base.model.BaseEntity;
+import com.dell.base.repository.GenericRepository;
+import com.dell.base.utils.exception.ResourceNotFoundException;
+import com.dell.base.utils.validators.GenericEntityValidator;
 
 /**
  * A generic service interface defining common operations for entities in the
